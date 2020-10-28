@@ -54,6 +54,7 @@ struct General;
 
 #[tokio::main]
 async fn main() {
+    // .env file has to be in root directory(above src)
     dotenv().expect(".env file not found");
     let token = env::var("DISCORD_TOKEN").unwrap();
 
