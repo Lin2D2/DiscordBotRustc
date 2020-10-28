@@ -1,3 +1,6 @@
+extern crate dotenv;
+use dotenv::dotenv;
+
 use std::{env, sync::Arc};
 
 // Import the client's bridge to the voice manager. Since voice is a standalone
@@ -30,9 +33,6 @@ use serenity::{
 
 use serenity::prelude::*;
 
-#[macro_use]
-extern crate dotenv_codegen;
-
 struct VoiceManager;
 
 impl TypeMapKey for VoiceManager {
@@ -54,11 +54,8 @@ struct General;
 
 #[tokio::main]
 async fn main() {
-    // TODO fix dotenv
-    // Configure the client with your Discord bot token in the environment.
-    //let token = dotenv!("DISCORD_TOKEN");
-    let token = env::var("DISCORD_TOKEN")
-        .expect("Expected a token in the environment");
+    dotenv().expect(".env file not found");
+    let token = env::var("DISCORD_TOKEN").unwrap();
 
     let framework = StandardFramework::new()
         .configure(|c| c
